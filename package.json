@@ -1,0 +1,24 @@
+{
+  "name": "kelvinht-bookshelf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kelvintandrio/kelvinht-bookshelf.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kelvintandrio/kelvinht-bookshelf/issues"
+  },
+  "homepage": "https://github.com/kelvintandrio/kelvinht-bookshelf#readme",
+  "dependencies": {
+    "@hapi/hapi": "^20.2.2"
+  }
+}
