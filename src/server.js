@@ -1,15 +1,20 @@
-const Hapi = require("@hapi/hapi");
-const books = require("./books");
+const Hapi = require('@hapi/hapi');
+const routes = require('./routes');
 
 const init = async () => {
   const server = Hapi.server({
-    port: 3131,
-    host: "localhost",
+    port: 3030,
+    host: 'localhost',
+    routes: {
+      cors: {
+        origin: ['*'],
+      },
+    },
   });
 
-  server.route(books);
+  server.route(routes);
   await server.start();
-  console.log(`Server ${server.info.uri} is running`);
+  console.log(`Server is running ${server.info.uri}`);
 };
 
 init();

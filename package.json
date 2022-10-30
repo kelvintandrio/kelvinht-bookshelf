@@ -1,5 +1,5 @@
 {
-  "name": "kelvinht-bookshelf",
+  "name": "notes-app-back-end",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,21 +7,14 @@
     "start": "nodemon ./src/server.js",
     "lint": "eslint ./src"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kelvintandrio/kelvinht-bookshelf.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/kelvintandrio/kelvinht-bookshelf/issues"
-  },
-  "homepage": "https://github.com/kelvintandrio/kelvinht-bookshelf#readme",
   "devDependencies": {
     "eslint": "^8.26.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-react": "^7.31.10",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
