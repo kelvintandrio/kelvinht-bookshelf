@@ -12,6 +12,27 @@ const getAllBooksHandler = () => ({
   },
 });
 
+const getBookByIdHandler = (request, h) => {
+  const { id } = request.params;
+  const book = books.filter((n) => n.id === id)[0];
+
+  if (book !== undefined) {
+    return {
+      status: "success",
+      data: {
+        book,
+      },
+    };
+  }
+
+  const response = h.response({
+    status: "fail",
+    message: "Buku tidak ditemukan",
+  });
+  response.code(404);
+  return response;
+};
+
 const addBookHandler = (request, h) => {
   const {
     name,
@@ -89,11 +110,82 @@ const addBookHandler = (request, h) => {
   return response;
 };
 
+const updateBookHandler = (request, h) => {
+  const { id } = request.params;
+
+  const {
+    name,
+    year,
+    author,
+    summary,
+    publisher,
+    pageCount,
+    readPage,
+    reading,
+  } = request.payload;
+
+  const updateAt = new Date().toISOString();
+
+  const index = books.findIndex((book) => book.id === id);
+
+  if (index !== -1) {
+    books[index] = {
+      ...books[index],
+      name,
+      year,
+      author,
+      summary,
+      publisher,
+      pageCount,
+      readPage,
+      reading,
+      updateAt,
+    };
+
+    const response = h.response({
+      status: "success",
+      message: "Buku berhasil diperbarui",
+    });
+    response.code(200);
+    return response;
+  }
+
+  const response = h.response({
+    status: "fail",
+    message: "Gagal memperbarui buku. Id tidak ditemukan",
+  });
+  response.code(404);
+  return response;
+};
+
+const deleteBookHandler = (request, h) => {
+  const { id } = request.params;
+
+  const index = books.findIndex((book) => book.id === id);
+
+  if (index !== 1) {
+    books.splice(index, 1);
+    const response = h.response({
+      status: "success",
+      message: "Buku berhasil dihapus",
+    });
+    response.code(200);
+    return response;
+  }
+
+  const response = h.response({
+    status: "fail",
+    message: "Buku gagal dihapus. Id tidak ditemukan",
+  });
+  response.code(404);
+  return response;
+};
+
 module.exports = {
   testHandler,
   getAllBooksHandler,
-  // getBookByIdHandler,
+  getBookByIdHandler,
   addBookHandler,
-  // updateBookHandler,
-  // deleteBookHandler,
+  updateBookHandler,
+  deleteBookHandler,
 };
