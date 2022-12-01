@@ -47,7 +47,7 @@ const addBookHandler = (request, h) => {
 
   const id = nanoid(16);
   const finished = pageCount === readPage;
-  const insertedAt = new Date().toISOString;
+  const insertedAt = new Date().toISOString();
   const updateAt = insertedAt;
 
   const newBook = {
@@ -71,6 +71,7 @@ const addBookHandler = (request, h) => {
 
   if (isSuccess) {
     if (!name) {
+      books.pop(newBook);
       const response = h.response({
         status: "fail",
         message: "Failed add book. Name is not empty",
@@ -80,6 +81,7 @@ const addBookHandler = (request, h) => {
       return response;
     }
     if (readPage > pageCount) {
+      books.pop(newBook);
       const response = h.response({
         status: "fail",
         message: "Failed add book. readPage is not bigger than pageCount",
@@ -129,6 +131,26 @@ const updateBookHandler = (request, h) => {
   const index = books.findIndex((book) => book.id === id);
 
   if (index !== -1) {
+    if (!name) {
+      const response = h.response({
+        status: "fail",
+        message: "Gagal memperbarui buku. Mohon isi nama buku",
+      });
+
+      response.code(400);
+      return response;
+    }
+
+    if (readPage > pageCount) {
+      const response = h.response({
+        status: "fail",
+        message: "Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount",
+      });
+
+      response.code(500);
+      return response;
+    }
+
     books[index] = {
       ...books[index],
       name,
@@ -163,7 +185,9 @@ const deleteBookHandler = (request, h) => {
 
   const index = books.findIndex((book) => book.id === id);
 
-  if (index !== 1) {
+  console.log(index);
+
+  if (index === 0) {
     books.splice(index, 1);
     const response = h.response({
       status: "success",
